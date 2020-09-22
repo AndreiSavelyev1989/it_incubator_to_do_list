@@ -22,3 +22,22 @@
 .is-done {
   opacity: 0.5;
 }
+
+.deleteButton {
+  background: lightcoral;
+  font-weight: bold;
+}
+
+.addButton {
+  background: aquamarine;
+  font-weight: bold;
+}
+
+button,
+input,
+button:active,
+button:focus {
+  outline: none;
+  border-color: aquamarine;
+  border-radius: 5px;
+}
