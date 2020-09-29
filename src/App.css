@@ -1,43 +1,43 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
-
-.App > div {
-  margin-right: 50px;
-}
-
-.error {
-  border: 1px solid red;
-}
-
-.error_message {
-  color: red
-}
-
-.active-filter {
-  background-color: aquamarine;
-}
-
 .is-done {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
-.deleteButton {
-  background: lightcoral;
-  font-weight: bold;
-}
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*}*/
 
-.addButton {
-  background: aquamarine;
-  font-weight: bold;
-}
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
 
-button,
-input,
-button:active,
-button:focus {
-  outline: none;
-  border-color: aquamarine;
-  border-radius: 5px;
-}
+/*.error {*/
+/*  border: 1px solid red;*/
+/*}*/
+
+/*.error_message {*/
+/*  color: red*/
+/*}*/
+
+/*.active-filter {*/
+/*  background-color: aquamarine;*/
+/*}*/
+
+/*.deleteButton {*/
+/*  background: lightcoral;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*.addButton {*/
+/*  background: aquamarine;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*button,*/
+/*input,*/
+/*button:active,*/
+/*button:focus {*/
+/*  outline: none;*/
+/*  border-color: aquamarine;*/
+/*  border-radius: 5px;*/
+/*}*/
