@@ -30,12 +30,23 @@ export const changeTaskTitleAC = (taskId: string, title: string, todoListId: str
     todoListId
 }) as const
 
-export const tasksReducer = (state: TasksStateType, action: ActionsTasksType) => {
+let initialState: TasksStateType = {
+    ["todoListID1"]: [
+        {id: v1(), title: "HTML&CSS", isDone: false},
+        {id: v1(), title: "JS", isDone: false},
+        {id: v1(), title: "React", isDone: false},
+        {id: v1(), title: "Java", isDone: false}
+    ],
+    ["todoListID2"]: [
+        {id: v1(), title: "Books", isDone: false},
+        {id: v1(), title: "Butter", isDone: false},
+        {id: v1(), title: "Onion", isDone: false},
+        {id: v1(), title: "Garlik", isDone: false}
+    ],
+}
+export const tasksReducer = (state = initialState, action: ActionsTasksType) => {
     switch (action.type) {
         case REMOVE_TASK:
-            // let copyState = {...state}
-            // copyState[action.todolistId] = copyState[action.todolistId].filter(t => t.id !== action.taskId)
-            // return copyState
             return {
                 ...state,
                 [action.todoListId]: state[action.todoListId].filter(t => t.id !== action.taskId)
@@ -71,6 +82,6 @@ export const tasksReducer = (state: TasksStateType, action: ActionsTasksType) =>
             return copyState
 
         default:
-            throw new Error("I don't understand this type")
+            return state
     }
 }
