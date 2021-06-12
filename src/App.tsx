@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import './App.css';
 import {TodoList} from "./TodoList";
 import {v1} from "uuid";
-import {AlternativeApp} from "./components/AlternativeApp";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
@@ -82,7 +81,7 @@ function App() {
         delete tasks[todoListID]
         setTasks({...tasks})
     }
-    const addTodoList = (title: string) => {
+    const addTodoList = useCallback((title: string) => {
         const newTodoListId = v1()
         const newTodoList: TodoListType = {
             id: newTodoListId,
@@ -94,7 +93,7 @@ function App() {
             ...tasks,
             [newTodoListId]: []
         })
-    }
+    }, [])
 
     const changeTaskTitle = (taskId: string, title: string, todoListID: string) => {
         const todoListTasks = tasks[todoListID]
@@ -125,7 +124,6 @@ function App() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            {/*<AlternativeApp />*/}
             <Container fixed>
                 <Grid style={{padding: "15px"}}>
                     <AddItemForm addItem={addTodoList}/>

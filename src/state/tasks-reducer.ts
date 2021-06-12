@@ -41,7 +41,7 @@ let initialState: TasksStateType = {
         {id: v1(), title: "Books", isDone: false},
         {id: v1(), title: "Butter", isDone: false},
         {id: v1(), title: "Onion", isDone: false},
-        {id: v1(), title: "Garlik", isDone: false}
+        {id: v1(), title: "Garlic", isDone: false}
     ],
 }
 export const tasksReducer = (state = initialState, action: ActionsTasksType) => {
@@ -58,24 +58,23 @@ export const tasksReducer = (state = initialState, action: ActionsTasksType) => 
                 [action.todoListId]: [newTask, ...state[action.todoListId]]
             }
         case CHANGE_TASK_STATUS:
-            const todoListTasks = state[action.todoListId]
-            const task = todoListTasks.find(t => t.id === action.taskId)
-            if (task) {
-                task.isDone = action.isDone
+            return {
+                ...state,
+                [action.todoListId]: state[action.todoListId]
+                    .map(t => t.id === action.taskId
+                        ? {...t, isDone: action.isDone}
+                        : t)
             }
-            return {...state, [action.todoListId]: todoListTasks}
-
-        case CHANGE_TASK_TITLE: {
-            const todoListTasks = state[action.todoListId]
-            const task = todoListTasks.find(t => t.id === action.taskId)
-            if (task) {
-                task.title = action.title
+        case CHANGE_TASK_TITLE:
+            return {
+                ...state,
+                [action.todoListId]: state[action.todoListId]
+                    .map(t => t.id === action.taskId
+                        ? {...t, title: action.title}
+                        : t)
             }
-            return {...state, [action.todoListId]: todoListTasks}
-        }
-        case ADD_TODOLIST: {
+        case ADD_TODOLIST:
             return {...state, [action.todolistId]: []}
-        }
         case REMOVE_TODOLIST:
             const copyState = {...state}
             delete copyState[action.id]
