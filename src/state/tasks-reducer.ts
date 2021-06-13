@@ -1,6 +1,6 @@
 import {TasksStateType, TaskType, TodoListType} from "../App";
 import {v1} from "uuid";
-import {ADD_TODOLIST, addTodolistAC, REMOVE_TODOLIST, removeTodolistAC} from "./todolist-reducer";
+import {ADD_TODOLIST, addTodolistAC, REMOVE_TODOLIST, removeTodolistAC, setTodolistsAC, SET_TODOLISTS} from "./todolist-reducer";
 
 const REMOVE_TASK = "REMOVE_TASK"
 const ADD_TASK = "ADD_TASK"
@@ -8,12 +8,13 @@ const CHANGE_TASK_STATUS = "CHANGE_TASK_STATUS"
 const CHANGE_TASK_TITLE = "CHANGE_TASK_TITLE"
 
 export type ActionsTasksType =
-    ReturnType<typeof removeTaskAC> |
-    ReturnType<typeof addTaskAC> |
-    ReturnType<typeof changeTaskStatusAC> |
-    ReturnType<typeof changeTaskTitleAC> |
-    ReturnType<typeof addTodolistAC> |
-    ReturnType<typeof removeTodolistAC>
+    | ReturnType<typeof removeTaskAC>
+    | ReturnType<typeof addTaskAC>
+    | ReturnType<typeof changeTaskStatusAC>
+    | ReturnType<typeof changeTaskTitleAC>
+    | ReturnType<typeof addTodolistAC>
+    | ReturnType<typeof removeTodolistAC>
+    | ReturnType<typeof setTodolistsAC>
 
 export const removeTaskAC = (taskId: string, todoListId: string) => ({type: REMOVE_TASK, taskId, todoListId}) as const
 export const addTaskAC = (title: string, todoListId: string) => ({type: ADD_TASK, title, todoListId}) as const
@@ -79,6 +80,13 @@ export const tasksReducer = (state = initialState, action: ActionsTasksType) => 
             const copyState = {...state}
             delete copyState[action.id]
             return copyState
+        case SET_TODOLISTS: {
+            const stateCopy = {...state}
+            action.todos.forEach((tl) => {
+                stateCopy[tl.id] = []
+            })
+            return stateCopy;
+        }
 
         default:
             return state
