@@ -1,4 +1,3 @@
-import {FilterValuesType, TodoListType} from "../App";
 import {v1} from "uuid";
 import {AppRootStateType} from "./store";
 import {ThunkAction} from "redux-thunk";
@@ -27,20 +26,26 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => 
 } as const)
 export const setTodolistsAC = (todos: Array<TodoType>) => ({type: SET_TODOLISTS, todos} as const)
 
-let initialState: Array<TodoListType> = []
+export type FilterValuesType = "all" | "active" | "completed";
+export type TodolistDomainType = TodoType & {
+    filter: FilterValuesType
+}
 
-export const todolistReducer = (state = initialState, action: ActionsTodoListTypes): Array<TodoListType> => {
+let initialState: Array<TodolistDomainType> = []
+
+export const todolistReducer = (state = initialState, action: ActionsTodoListTypes): Array<TodolistDomainType> => {
     switch (action.type) {
         case REMOVE_TODOLIST:
             return state.filter(tl => tl.id !== action.id)
 
         case ADD_TODOLIST:
-            const newTodoList: TodoListType = {
+            return [{
                 id: action.todolistId,
                 title: action.title,
-                filter: "all"
-            }
-            return [newTodoList, ...state]
+                filter: 'all',
+                addedDate: '',
+                order: 0
+            }, ...state]
 
         case CHANGE_TODOLIST_TITLE:
             return state.map(tl => {
@@ -67,7 +72,7 @@ export const todolistReducer = (state = initialState, action: ActionsTodoListTyp
     }
 }
 
-type ThunkAuthType = ThunkAction<void, AppRootStateType, unknown, ActionsTodoListTypes>
+export type ThunkAuthType = ThunkAction<void, AppRootStateType, unknown, ActionsTodoListTypes>
 
 export const requestTodos = (): ThunkAuthType => (dispatch) => {
     return todolistAPI.getTodos()
